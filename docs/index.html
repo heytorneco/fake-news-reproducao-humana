@@ -3,175 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detector de Fake News em Saúde</title>
+    <title>Detector de Fake News em Reprodução Humana</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f2f5fa;
-            color: #333;
+            font-family: "Inter", sans-serif;
+            background: linear-gradient(135deg, #001F3F, #0074D9);
+            color: #fff;
         }
 
         header {
-            background: #4a6cf7;
-            padding: 20px;
             text-align: center;
-            color: #fff;
-            font-size: 26px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            padding: 50px 20px 20px;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 850px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: auto;
             padding: 25px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        h2 {
-            margin-top: 0;
-            text-align: center;
-            color: #4a6cf7;
+        .card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(14px);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+            animation: fadeIn 0.7s ease;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         textarea {
             width: 100%;
-            height: 150px;
+            height: 130px;
+            margin-top: 10px;
             padding: 12px;
-            font-size: 16px;
             border-radius: 10px;
-            border: 1px solid #ccc;
-            outline: none;
-            resize: vertical;
-        }
-
-        textarea:focus {
-            border-color: #4a6cf7;
-            box-shadow: 0 0 6px rgba(74,108,247,0.3);
+            border: none;
+            resize: none;
+            font-size: 1rem;
+            font-family: inherit;
         }
 
         button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 14px;
-            background: #4a6cf7;
+            margin-top: 15px;
+            padding: 14px 22px;
+            font-size: 1rem;
+            background: #2ECC40;
             border: none;
-            color: white;
-            font-size: 18px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            color: #fff;
+            font-weight: 600;
+            transition: 0.25s;
         }
 
         button:hover {
-            background: #3a57d2;
+            background: #27ae38;
         }
 
-        .resultado {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 18px;
+        .result-card {
             display: none;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
         }
 
-        .fake {
-            background: #ffdad6;
-            color: #8a0f00;
-            border-left: 6px solid #b30000;
+        .alert-fake {
+            color: #FF4136;
+            font-weight: 700;
         }
 
-        .verdade {
-            background: #cdf3d2;
-            color: #0f6b26;
-            border-left: 6px solid #1a8f3c;
+        .alert-true {
+            color: #2ECC40;
+            font-weight: 700;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
         }
     </style>
 </head>
+
 <body>
 
-<header>Detector de Fake News em Saúde – Reprodução Humana</header>
+<header>
+    <h1>🔍 Detector de Fake News em Reprodução Humana</h1>
+    <p class="subtitle">Ferramenta educacional para identificar desinformação e mitos sobre fertilidade, gestação e métodos reprodutivos.</p>
+</header>
 
 <div class="container">
-    <h2>Verifique se uma afirmação é confiável</h2>
-    <p>Digite abaixo uma frase, notícia ou informação sobre reprodução humana que você deseja verificar.</p>
 
-    <textarea id="texto" placeholder="Exemplo: “Tomar Coca-Cola depois da relação impede gravidez.”"></textarea>
+    <div class="card">
+        <label for="inputText">Digite aqui a frase, notícia ou boato:</label>
+        <textarea id="inputText" placeholder="Exemplo: Tomar água gelada impede a gravidez."></textarea>
+        <button onclick="analisar()">Analisar Informações</button>
+    </div>
 
-    <button onclick="analisar()">Analisar Informação</button>
+    <div id="resultado" class="result-card"></div>
 
-    <div id="resultado" class="resultado"></div>
+    <div class="card">
+        <h2>ℹ️ Exemplos de Fake News comuns</h2>
+        <ul>
+            <li>“Tomar água gelada impede a gravidez.”</li>
+            <li>“Ducha vaginal com refrigerante evita a fecundação.”</li>
+            <li>“Coito interrompido é um método contraceptivo seguro.”</li>
+            <li>“Ficar de cabeça para baixo aumenta a chance de engravidar.”</li>
+            <li>“Injetar vitamina aumenta o QI do bebê durante a gestação.”</li>
+            <li>“Ovários policísticos impedem totalmente a gravidez.”</li>
+        </ul>
+    </div>
+
 </div>
 
-<footer>
-    © 2025 – Heytor Neco - Projeto educativo contra desinformação em saúde.
-</footer>
 
 <script>
-    function analisar() {
-        const texto = document.getElementById("texto").value.toLowerCase();
-        const resultado = document.getElementById("resultado");
+const fakeNewsBanco = [
+    "tomar água gelada impede a gravidez",
+    "ducha vaginal com refrigerante evita a gravidez",
+    "coito interrompido é seguro",
+    "ficar de cabeça para baixo aumenta as chances",
+    "injetar vitamina aumenta o qi do bebê",
+    "ovários policísticos impedem totalmente a gravidez",
+    "fertilidade aumenta com chá milagroso",
+    "fazer xixi depois do sexo impede gravidez",
+    "anticoncepcional causa infertilidade permanente",
+    "esperma morre imediatamente ao contato com ar",
+    "camisinha tem microfuros que sempre deixam escapar esperma",
+    "vacinas deixam mulheres inférteis",
+    "homem infértil sempre ejacula sem espermatozoides",
+    "menstruação sincronizada aumenta fertilidade",
+    "gravidez só acontece no dia da ovulação",
+    "mulher só engravida se tiver orgasmo"
+];
 
-        if (texto.trim() === "") {
-            resultado.style.display = "block";
-            resultado.className = "resultado fake";
-            resultado.innerHTML = "Digite alguma informação para análise.";
-            return;
-        }
+function analisar() {
+    const texto = document.getElementById("inputText").value.toLowerCase().trim();
+    const bloco = document.getElementById("resultado");
 
-        const padroesFake = [
-            "coca",
-            "pepsi",
-            "lavagem", 
-            "lavar o", 
-            "canal se fecha",
-            "gravidez sem contato",
-            "fazer xixi",
-            "urinar após a relação",
-            "chá milagroso",
-            "engravidar pela saliva",
-            "engravidar pela água",
-            "ovário fabrica novos óvulos",
-            "repor óvulos com vitaminas"
-        ];
+    if (texto.length < 5) {
+        bloco.style.display = "block";
+        bloco.innerHTML = "<p class='alert-fake'>⚠️ Digite um texto maior para análise.</p>";
+        return;
+    }
 
-        let ehFake = false;
-        for (let p of padroesFake) {
-            if (texto.includes(p)) {
-                ehFake = true;
-                break;
-            }
-        }
+    let encontrado = false;
 
-        resultado.style.display = "block";
-
-        if (ehFake) {
-            resultado.className = "resultado fake";
-            resultado.innerHTML = `
-                <strong>⚠️ Possível Fake News detectada!</strong><br><br>
-                O conteúdo informado contém elementos muito comuns em boatos sobre
-                reprodução humana. Verifique fontes confiáveis e orientações de profissionais
-                de saúde antes de compartilhar.
-            `;
-        } else {
-            resultado.className = "resultado verdade";
-            resultado.innerHTML = `
-                <strong>✓ Não encontramos sinais claros de fake news.</strong><br><br>
-                Mesmo assim, recomendamos sempre confirmar informações em fontes científicas
-                confiáveis como OMS, Ministério da Saúde e sociedades médicas.
-            `;
+    for (let item of fakeNewsBanco) {
+        if (texto.includes(item)) {
+            encontrado = true;
+            break;
         }
     }
+
+    bloco.style.display = "block";
+
+    if (encontrado) {
+        bloco.innerHTML = `
+            <p class="alert-fake">🚫 Fake News detectada!</p>
+            <p>A frase contém elementos conhecidos de desinformação sobre reprodução humana.</p>
+            <p><strong>Recomendação:</strong> Consulte fontes confiáveis como OMS, FEBRASGO, Ministério da Saúde ou profissionais de saúde.</p>
+        `;
+    } else {
+        bloco.innerHTML = `
+            <p class="alert-true">✔️ Nenhuma Fake News conhecida foi detectada.</p>
+            <p>Isso não garante que a informação seja verdadeira — apenas que não foi encontrada no banco de dados interno.</p>
+        `;
+    }
+}
 </script>
 
 </body>
